@@ -1,0 +1,91 @@
+<div class="text-box-container w-full"
+     [class.disabled]="disabled()"
+     [class.focused]="focused()"
+     [class.invalid]="isInvalid">
+     
+  @if (label()) {
+    <label class="block text-sm font-semibold text-primary mb-2 transition-colors duration-200">
+      {{ label() }}
+      @if (required()) {
+        <span class="text-error" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <div class="input-wrapper relative flex items-center rounded-xl bg-white border border-outline-variant transition-all duration-200"
+       [class.border-error]="isInvalid"
+       [class.border-primary]="focused() && !isInvalid"
+       [class.bg-surface-container-low]="disabled()"
+       [class.shadow-md]="focused()"
+       [class.focused-glow]="focused() && !isInvalid"
+       [class.error-glow]="isInvalid">
+       
+    <!-- Start Icon -->
+    @if (icon()) {
+      <span class="material-symbols-outlined start-icon select-none text-outline-variant pr-4 transition-colors"
+            [class.text-primary]="focused() && !isInvalid"
+            [class.text-error]="isInvalid">
+        {{ icon() }}
+      </span>
+    }
+
+    <!-- Input Element -->
+    <input
+      [type]="inputType()"
+      [value]="value()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [attr.maxlength]="maxLength()"
+      [attr.minlength]="minLength()"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      class="w-full bg-transparent border-0 outline-none text-base py-3 px-4 text-on-surface placeholder-outline-variant/60 font-body-md"
+      [class.pr-2]="icon()"
+      [class.pl-10]="type() === 'password' || clearable()"
+    />
+
+    <!-- Clear text action -->
+    @if (clearable() && value() && !disabled()) {
+      <button
+        type="button"
+        (click)="clear()"
+        class="absolute left-10 flex items-center justify-center text-outline hover:text-primary rounded-full hover:bg-surface-container transition-colors p-1"
+        aria-label="مسح النص">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    }
+
+    <!-- Password toggle action -->
+    @if (type() === 'password' && !disabled()) {
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="password-toggle absolute left-3 flex items-center justify-center text-outline hover:text-primary rounded-full hover:bg-surface-container transition-colors p-1"
+        [aria-label]="showPassword() ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'">
+        <span class="material-symbols-outlined text-[20px]">
+          {{ showPassword() ? 'visibility_off' : 'visibility' }}
+        </span>
+      </button>
+    } @else if (iconEnd() && !disabled()) {
+      <!-- Custom End Icon -->
+      <span class="material-symbols-outlined end-icon select-none text-outline-variant left-4 absolute">
+        {{ iconEnd() }}
+      </span>
+    }
+  </div>
+
+  <!-- Hint / Error Helper Message -->
+  @if (isInvalid && errorMessage) {
+    <div class="error-text text-xs text-error font-body-md mt-1.5 flex items-center gap-1.5 animation-fade-in">
+      <span class="material-symbols-outlined text-[14px]">error</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+  } @else if (hint()) {
+    <div class="hint-text text-xs text-outline font-body-md mt-1.5">
+      {{ hint() }}
+    </div>
+  }
+</div>
+

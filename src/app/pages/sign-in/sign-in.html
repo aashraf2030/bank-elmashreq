@@ -1,0 +1,87 @@
+<main class="grow flex flex-col md:flex-row pt-margin-desktop min-h-[85vh]">
+    <!-- Left Side: Lifestyle Image -->
+    <div class="hidden md:flex md:w-1/2 relative bg-primary items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 w-full h-full">
+            <img class="w-full h-full object-cover opacity-80 mix-blend-overlay"
+                alt="أمان لا مثيل له، وخدمات النخبة"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfw1Rp_uWAs2nVffTfOARMAz-ErX3nbsjbKyXSq30Gcy5T949SwL1AE0nz5Bsx2e8-bgXItjn0jiwPy40EmfIm-FKNFxP5tnUt33seIrrORBqxnwpdn1ahxIdE2zUog9eNGv4ESrkyi6HkZw5_S2bUx0YU_aYwPUh4N4Aq6hYtDeEvv1CERjO7WMMmYU1HMwL7-WXbAWecBGuX-hmXZcfOvEygfuNMOT1GM8ch8nm8M79yO-_fMbwDxBM6Oe7RJwzGUZ1jfVI7bK8" />
+        </div>
+        <div class="relative z-10 text-center px-12 max-w-lg">
+            <div
+                class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-on-primary text-5xl"
+                    style="font-variation-settings: 'FILL' 1;">security</span>
+            </div>
+            <h1 class="font-headline-lg text-headline-lg text-on-primary mb-4 leading-tight">أمان لا مثيل له، وخدمات النخبة.</h1>
+            <p class="font-body-lg text-body-lg text-primary-fixed-dim">حسابك في أيدٍ أمينة مع تقنيات الحماية المتقدمة والمصممة خصيصاً لعملائنا المميزين.</p>
+        </div>
+        <!-- Decorative Glow -->
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary-container rounded-full blur-[150px] opacity-20 transform translate-y-1/2 -translate-x-1/2">
+        </div>
+    </div>
+    <!-- Right Side: Login Form -->
+    <div
+        class="w-full md:w-1/2 flex items-center justify-center p-margin-mobile md:p-12 bg-surface-container-lowest relative">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-10">
+                <h2 class="font-headline-md text-headline-md font-bold text-primary mb-2">مرحباً بك مجدداً</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">الرجاء إدخال بياناتك للوصول إلى حسابك.</p>
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-6">
+                <!-- Username Field -->
+                <app-text-box
+                    formControlName="username"
+                    label="اسم المستخدم أو رقم الهوية"
+                    placeholder="أدخل اسم المستخدم"
+                    icon="person"
+                    [required]="true"
+                    [clearable]="true">
+                </app-text-box>
+
+                <!-- Password Field -->
+                <app-text-box
+                    formControlName="password"
+                    label="كلمة المرور"
+                    placeholder="أدخل كلمة المرور"
+                    type="password"
+                    icon="lock"
+                    [required]="true">
+                </app-text-box>
+
+                <!-- Remember & Forgot -->
+                <div class="flex items-center justify-between pt-2">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input
+                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary-container focus:ring-offset-2 transition-all"
+                            type="checkbox" />
+                        <span
+                            class="font-body-md text-body-md text-on-surface-variant group-hover:text-primary transition-colors">تذكرني</span>
+                    </label>
+                    <a class="font-label-bold text-label-bold text-secondary-container hover:text-secondary transition-colors underline-offset-4 hover:underline"
+                        href="#">هل نسيت كلمة المرور؟</a>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <app-button
+                        type="submit"
+                        variant="secondary"
+                        size="lg"
+                        [loading]="isLoading()"
+                        class="w-full">
+                        تسجيل الدخول
+                    </app-button>
+                </div>
+            </form>
+            <!-- Register Link -->
+            <div class="mt-8 text-center pt-8 border-t border-surface-variant">
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    ليس لديك حساب؟
+                    <a class="font-label-bold text-label-bold text-primary hover:text-primary-container transition-colors underline-offset-4 hover:underline mr-1"
+                        href="#">سجل الآن</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>

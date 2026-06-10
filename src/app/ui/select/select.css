@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.select-trigger {
+  background-color: var(--color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--color-outline-variant, #c4c6d2);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.select-trigger:hover:not(:disabled) {
+  border-color: var(--color-outline, #747782);
+}
+
+/* Focused & Error glows matching TextBox */
+.focused-glow {
+  box-shadow: 
+    0 0 0 3px rgba(0, 45, 114, 0.15),
+    0 4px 12px rgba(0, 45, 114, 0.05);
+  border-color: var(--color-primary, #001a48) !important;
+}
+
+.error-glow {
+  box-shadow: 
+    0 0 0 3px rgba(186, 26, 26, 0.15),
+    0 4px 12px rgba(186, 26, 26, 0.05);
+  border-color: var(--color-error, #ba1a1a) !important;
+}
+
+/* Chevron arrow transition */
+.chevron {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dropdown Menu Glassmorphism and animations */
+.dropdown-menu {
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 45, 114, 0.15),
+    0 5px 15px -3px rgba(0, 45, 114, 0.05);
+  border: 1px solid var(--color-outline-variant, #c4c6d2);
+}
+
+/* Scrollbar Customization */
+.options-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.options-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.options-list::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant, #c4c6d2);
+  border-radius: 3px;
+}
+
+.options-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline, #747782);
+}
+
+/* Dropdown Option Hover styles */
+.option-item:hover {
+  background-color: var(--color-surface-container-low, #f1f4f6);
+}
+
+/* Disabled styling */
+.disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.disabled .select-trigger {
+  background-color: var(--color-surface-container, #ebeef0);
+}
+
+/* Slide-in dropdown animation */
+.animation-slide-in {
+  animation: slideIn 0.22s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade-in error */
+.animation-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

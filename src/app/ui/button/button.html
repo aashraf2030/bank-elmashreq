@@ -1,0 +1,33 @@
+<button
+  [type]="type()"
+  [class]="buttonClasses()"
+  [disabled]="disabled() || loading()"
+  [attr.aria-busy]="loading()"
+  [attr.aria-disabled]="disabled() || loading()">
+  
+  @if (loading()) {
+    <span class="loading-spinner absolute w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+    <span class="opacity-0 flex items-center justify-center gap-2">
+      @if (icon() && iconPosition() === 'start') {
+        <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">{{ icon() }}</span>
+      }
+      <ng-content></ng-content>
+      @if (icon() && iconPosition() === 'end') {
+        <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">{{ icon() }}</span>
+      }
+    </span>
+  } @else {
+    @if (icon() && iconPosition() === 'start') {
+      <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">{{ icon() }}</span>
+    }
+    
+    <span class="button-label">
+      <ng-content></ng-content>
+    </span>
+
+    @if (icon() && iconPosition() === 'end') {
+      <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">{{ icon() }}</span>
+    }
+  }
+</button>
+

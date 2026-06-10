@@ -1,0 +1,116 @@
+<main class="grow w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-section-gap">
+    <!-- Header Section -->
+    <div class="mb-12 text-center md:text-right">
+        <h1
+            class="text-headline-xl-mobile md:text-headline-xl font-headline-xl-mobile md:font-headline-xl text-primary mb-4">
+            بيانات التوصيل والاستلام</h1>
+        <p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">يرجى ملء البيانات التالية لضمان وصول طلبك
+            في أسرع وقت.</p>
+    </div>
+    <!-- 12-Column Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+        <!-- Form Canvas (8 Cols) -->
+        <div class="md:col-span-8 glass-card rounded-xl p-6 md:p-8">
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Full Name -->
+                    <app-text-box [(ngModel)]="fullName" [ngModelOptions]="{standalone: true}" label="الاسم الكامل"
+                        placeholder="أدخل اسمك بالكامل" icon="person" [required]="true" [clearable]="true">
+                    </app-text-box>
+
+                    <!-- Mobile Number -->
+                    <app-text-box [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}" label="رقم الجوال"
+                        placeholder="100 000 0000" icon="call" type="tel" [required]="true" [onlyDigits]="true"
+                        [maxLength]="11" [minLength]="10" class="text-left" dir="ltr"
+                        [hint]="'يجب أن يتكون من 10 إلى 11 رقماً'">
+                    </app-text-box>
+                    <!-- City -->
+                    <app-select [options]="governorates" [(ngModel)]="selectedCity"
+                        [ngModelOptions]="{standalone: true}" label="المدينة" placeholder="اختر المدينة"
+                        icon="location_on" [searchable]="true">
+                    </app-select>
+                    <!-- District -->
+                    <app-text-box [(ngModel)]="district" [ngModelOptions]="{standalone: true}" label="المنطقة/الحي"
+                        placeholder="أدخل المنطقة أو الحي" icon="home" [required]="true">
+                    </app-text-box>
+                </div>
+                <!-- Street Name -->
+                <app-text-box [(ngModel)]="streetName" [ngModelOptions]="{standalone: true}" label="اسم الشارع"
+                    placeholder="أدخل اسم الشارع" icon="map" [required]="true">
+                </app-text-box>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Building/Villa Number -->
+                    <app-text-box [(ngModel)]="buildingNumber" [ngModelOptions]="{standalone: true}"
+                        label="رقم المبنى / الفيلا" placeholder="مثال: 12" icon="apartment" [required]="true">
+                    </app-text-box>
+
+                    <!-- Floor/Apartment -->
+                    <app-text-box [(ngModel)]="floorApartment" [ngModelOptions]="{standalone: true}"
+                        label="الطابق / الشقة" placeholder="مثال: الطابق 3، شقة 14" icon="layers" [required]="true">
+                    </app-text-box>
+                </div>
+                <!-- Additional Notes -->
+                <div class="space-y-2">
+                    <label class="text-label-bold font-label-bold text-on-surface block">ملاحظات إضافية للتوصيل
+                        (اختياري)</label>
+                    <textarea [(ngModel)]="notes" [ngModelOptions]="{standalone: true}"
+                        class="form-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md text-on-surface transition-all resize-none focus:outline-none focus:border-primary focus:ring-4 focus:ring-tertiary-fixed-dim/30"
+                        placeholder="أي معلومات إضافية تساعدنا للوصول إليك أسرع..." rows="4"></textarea>
+                </div>
+            </form>
+        </div>
+        <!-- Order Summary Sidebar (4 Cols) -->
+        <div class="md:col-span-4 space-y-6">
+            <!-- Sticky Container -->
+            <div class="glass-card rounded-xl p-6 sticky top-28">
+                <h3 class="text-headline-md font-headline-md text-primary mb-6 border-b border-outline-variant/30 pb-4">
+                    ملخص الطلب</h3>
+                <!-- Product Info -->
+                <div class="flex gap-4 mb-6">
+                    <div class="w-20 h-20 bg-surface-container-high rounded-lg overflow-hidden shrink-0 relative">
+                        <img alt="Smart Air Conditioner Unit" class="w-full h-full object-cover mix-blend-multiply"
+                            data-alt="A sleek, modern smart air conditioner unit mounted on a pristine white wall. The lighting is high-key and soft, creating a bright, refreshing light-mode aesthetic. The composition highlights the premium, high-tech design of the appliance with subtle blue ambient glows, aligning perfectly with a sophisticated lifestyle banking context. The mood is cool, reliable, and technologically advanced."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5fU5K1E3W6jKljM8YQ-UBGbtd5c7hKtFKYBbDL6gHe1dMSCTDw2Fuv6i_94xunRBAP30EjrNZd8EpIdkVtcvfmzt1HWApo6OUH_PLMBALl540FQDF4-lwtHgTcL5lg1fNdDCi7DDpYFKurQmSoFyI9qYQnslfpnIr4gmjCJE3m-smAfS3u0-FDdsMkK29liqvTjpTmEHDyuD8sulGctU2pNSH4WIJW7P42ynVoahuWnmUX7zh78owTm8mnzCwIXcGSx5TOnz15qQ" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="text-label-bold font-label-bold text-on-surface-variant block mb-1">المنتج:</span>
+                        <span class="text-body-lg font-body-lg text-primary font-semibold">تكييف هواء ذكي متطور</span>
+                    </div>
+                </div>
+                <!-- Price Breakdown -->
+                <div class="space-y-4 mb-8">
+                    <div class="flex justify-between items-center text-body-md font-body-md text-on-surface-variant">
+                        <span>السعر الأصلي:</span>
+                        <span class="line-through">20,000 ج.م</span>
+                    </div>
+                    <div
+                        class="flex justify-between items-center text-body-md font-body-md text-secondary-container font-semibold bg-secondary-container/10 px-3 py-1.5 rounded-md">
+                        <span>الخصم:</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="flex justify-between items-center text-body-md font-body-md text-on-surface-variant">
+                        <span>رسوم التوصيل:</span>
+                        <span class="text-tertiary-container font-semibold">مجاناً</span>
+                    </div>
+                    <div class="border-t border-outline-variant/30 pt-4 mt-4">
+                        <div class="flex justify-between items-end">
+                            <span class="text-label-bold font-label-bold text-primary">الإجمالي:</span>
+                            <span class="text-headline-md font-headline-md text-primary font-extrabold">8,000 ج.م</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Primary CTA -->
+                <div class="relative w-full">
+                    <app-button (click)="submitOrder()" variant="secondary" size="lg" [loading]="isSubmitting()"
+                        class="w-full">
+                        تأكيد الطلب وشحن المنتج
+                    </app-button>
+                </div>
+                <div class="mt-6 flex items-center justify-center gap-2 text-surface-tint">
+                    <span class="material-symbols-outlined text-sm">verified_user</span>
+                    <span class="text-[12px] font-label-bold">دفع آمن وموثوق عبر Mashreq</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

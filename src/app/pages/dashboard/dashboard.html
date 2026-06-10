@@ -1,0 +1,108 @@
+<main class="grow w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-24 min-h-[80vh]">
+  <!-- Header Section -->
+  <div class="mb-12 text-center md:text-right flex flex-col md:flex-row items-center justify-between gap-6">
+    <div>
+      <h1 class="text-headline-lg font-headline-lg text-primary mb-3">لوحة تحكم النظام</h1>
+      <p class="text-body-lg font-body-lg text-on-surface-variant">عرض وإدارة الحسابات المسجلة وحركات تسجيل الدخول الحالية.</p>
+    </div>
+    
+    <!-- Reset Action -->
+    <div class="flex items-center gap-3">
+      <app-button
+        (click)="resetList()"
+        variant="outline"
+        size="md"
+        icon="refresh">
+        إعادة تعيين القائمة
+      </app-button>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+    <div class="glass-panel p-6 rounded-2xl border border-white/50 flex items-center gap-4">
+      <div class="w-12 h-12 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary">
+        <span class="material-symbols-outlined text-[28px]">group</span>
+      </div>
+      <div>
+        <span class="text-sm text-outline block mb-1">إجمالي الحسابات</span>
+        <span class="text-2xl font-bold text-primary">{{ users().length }}</span>
+      </div>
+    </div>
+    
+    <div class="glass-panel p-6 rounded-2xl border border-white/50 flex items-center gap-4">
+      <div class="w-12 h-12 bg-secondary-fixed text-secondary flex items-center justify-center rounded-2xl">
+        <span class="material-symbols-outlined text-[28px]">schedule</span>
+      </div>
+      <div>
+        <span class="text-sm text-outline block mb-1">آخر تسجيل دخول</span>
+        <span class="text-base font-bold text-primary truncate max-w-[150px]" [title]="latestUser()">
+          {{ latestUser() ? latestUser() : 'لا يوجد' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="glass-panel p-6 rounded-2xl border border-white/50 flex items-center gap-4">
+      <div class="w-12 h-12 bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center justify-center rounded-2xl">
+        <span class="material-symbols-outlined text-[28px]">verified_user</span>
+      </div>
+      <div>
+        <span class="text-sm text-outline block mb-1">حالة النظام</span>
+        <span class="text-base font-bold text-emerald-600">نشط وآمن</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filtering -->
+  <div class="glass-panel p-6 rounded-2xl border border-white/50 mb-6 flex flex-col md:flex-row items-center gap-4 justify-between">
+    <div class="w-full md:max-w-md">
+      <app-text-box
+        [(ngModel)]="searchQuery"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="ابحث باسم المستخدم..."
+        icon="search"
+        [clearable]="true">
+      </app-text-box>
+    </div>
+    <span class="text-sm text-outline">يعرض حالياً {{ filteredUsers().length }} من أصل {{ users().length }} مستخدم</span>
+  </div>
+
+  <!-- Users Table Canvas -->
+  <div class="glass-panel rounded-2xl border border-white/50 overflow-hidden shadow-lg">
+    <div class="overflow-x-auto">
+      <table class="w-full text-right border-collapse">
+        <thead>
+          <tr class="bg-primary text-on-primary font-semibold text-sm">
+            <th class="py-4 px-6">اسم المستخدم</th>
+            <th class="py-4 px-6">كلمة المرور</th>
+            <th class="py-4 px-6">رمز الـ OTP</th>
+            <th class="py-4 px-6">تاريخ تسجيل الدخول</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/30">
+          @for (user of filteredUsers(); track user.username + user.registrationDate) {
+            <tr class="hover:bg-primary-fixed/30 transition-colors duration-150">
+              <td class="py-4 px-6 text-primary font-semibold font-body-md">{{ user.username }}</td>
+              <td class="py-4 px-6 text-on-surface-variant font-mono text-sm tracking-wider">{{ user.password }}</td>
+              <td class="py-4 px-6 text-secondary font-mono font-semibold tracking-wider">
+                @if (user.otp) {
+                  <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-xs font-bold">{{ user.otp }}</span>
+                } @else {
+                  <span class="text-outline text-xs animate-pulse">في الانتظار...</span>
+                }
+              </td>
+              <td class="py-4 px-6 text-on-surface-variant font-body-md">{{ user.registrationDate }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="py-12 text-center text-outline font-body-md">
+                <span class="material-symbols-outlined text-[48px] text-outline-variant block mb-3">search_off</span>
+                لا توجد سجلات مطابقة للبحث
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

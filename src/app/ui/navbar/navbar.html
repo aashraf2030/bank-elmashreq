@@ -1,0 +1,64 @@
+<nav
+    class="bg-surface/80 backdrop-blur-xl dark:bg-surface-container/80 fixed top-0 w-full z-50 border-b border-white/20 shadow-sm shadow-[0px_10px_30px_rgba(0,45,114,0.1)]">
+    <div
+        class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+        <div class="flex items-center shrink-0">
+            <img class="h-8 md:h-10 w-auto object-contain" src="./imgs/logo.svg" alt="Bank El-Mashreq">
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:text-secondary hover:scale-105 transition-all"
+                href="#">العروض</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:text-secondary hover:scale-105 transition-all"
+                href="#">البطاقات</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:text-secondary hover:scale-105 transition-all"
+                href="#">الحسابات</a>
+            <a class="font-body-md text-body-md text-secondary font-bold border-b-2 border-secondary pb-1 hover:text-secondary hover:scale-105 transition-all"
+                href="#">التكييف</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors hover:text-secondary hover:scale-105 transition-all"
+                href="#">الدعم</a>
+        </div>
+        <button
+            class="hidden md:block bg-secondary-container text-on-secondary font-label-bold text-label-bold px-6 py-2.5 rounded-full hover:scale-105 transition-all active:scale-95 duration-200 btn-glow">
+            تسجيل الدخول للاشتراك
+        </button>
+
+        <!-- Mobile Hamburger Button -->
+        <button (click)="toggleMenu()"
+            class="flex md:hidden flex-col justify-center items-center w-10 h-10 rounded-full hover:bg-surface-container transition-colors focus:outline-none z-50 gap-1.5"
+            [attr.aria-expanded]="isOpen()" aria-label="القائمة الرئيسية">
+            <span class="w-6 h-0.5 bg-primary rounded-full transition-all duration-300 origin-center"
+                [class.rotate-45]="isOpen()" [class.translate-y-[4px]]="isOpen()">
+            </span>
+            <span class="w-6 h-0.5 bg-primary rounded-full transition-all duration-300 origin-center"
+                [class.-rotate-45]="isOpen()" [class.-translate-y-[4px]]="isOpen()">
+            </span>
+        </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    @if (isOpen()) {
+    <div
+        class="absolute top-full left-0 w-full bg-surface/95 backdrop-blur-2xl border-b border-outline-variant/20 shadow-xl p-6 flex flex-col gap-4 md:hidden animation-slide-in">
+        <a (click)="closeMenu()"
+            class="font-body-lg text-body-lg text-on-surface-variant hover:text-secondary py-2 border-b border-outline-variant/10 text-right"
+            href="#">العروض</a>
+        <a (click)="closeMenu()"
+            class="font-body-lg text-body-lg text-on-surface-variant hover:text-secondary py-2 border-b border-outline-variant/10 text-right"
+            href="#">البطاقات</a>
+        <a (click)="closeMenu()"
+            class="font-body-lg text-body-lg text-on-surface-variant hover:text-secondary py-2 border-b border-outline-variant/10 text-right"
+            href="#">الحسابات</a>
+        <a (click)="closeMenu()"
+            class="font-body-lg text-body-lg text-secondary font-bold py-2 border-b border-outline-variant/10 text-right"
+            href="#">التكييف</a>
+        <a (click)="closeMenu()"
+            class="font-body-lg text-body-lg text-on-surface-variant hover:text-secondary py-2 text-right"
+            href="#">الدعم</a>
+
+        <button
+            class="w-full bg-secondary-container text-on-secondary font-label-bold text-label-bold py-3.5 rounded-full mt-2 hover:scale-102 active:scale-98 transition-all btn-glow shadow-[0_10px_20px_rgba(255,94,0,0.2)]">
+            تسجيل الدخول للاشتراك
+        </button>
+    </div>
+    }
+</nav>

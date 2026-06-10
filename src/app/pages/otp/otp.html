@@ -1,0 +1,103 @@
+<main class="grow flex flex-col md:flex-row pt-margin-desktop min-h-[85vh]">
+    <!-- Left Side: Lifestyle Image & Security Slogan -->
+    <div class="hidden md:flex md:w-1/2 relative bg-primary items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 w-full h-full">
+            <img class="w-full h-full object-cover opacity-80 mix-blend-overlay"
+                alt="حماية الحساب والتحقق الثنائي"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfw1Rp_uWAs2nVffTfOARMAz-ErX3nbsjbKyXSq30Gcy5T949SwL1AE0nz5Bsx2e8-bgXItjn0jiwPy40EmfIm-FKNFxP5tnUt33seIrrORBqxnwpdn1ahxIdE2zUog9eNGv4ESrkyi6HkZw5_S2bUx0YU_aYwPUh4N4Aq6hYtDeEvv1CERjO7WMMmYU1HMwL7-WXbAWecBGuX-hmXZcfOvEygfuNMOT1GM8ch8nm8M79yO-_fMbwDxBM6Oe7RJwzGUZ1jfVI7bK8" />
+        </div>
+        <div class="relative z-10 text-center px-12 max-w-lg">
+            <div
+                class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-md border border-white/20">
+                <span class="material-symbols-outlined text-on-primary text-5xl"
+                    style="font-variation-settings: 'FILL' 1;">security_update_good</span>
+            </div>
+            <h1 class="font-headline-lg text-headline-lg text-on-primary mb-4 leading-tight">حماية إضافية لحسابك.</h1>
+            <p class="font-body-lg text-body-lg text-primary-fixed-dim">التحقق الثنائي عبر كلمة المرور لمرة واحدة (OTP) يضمن عدم وصول أي شخص آخر إلى بياناتك المصرفية.</p>
+        </div>
+        <!-- Decorative Glow -->
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary-container rounded-full blur-[150px] opacity-20 transform translate-y-1/2 -translate-x-1/2">
+        </div>
+    </div>
+
+    <!-- Right Side: OTP Input Form -->
+    <div
+        class="w-full md:w-1/2 flex items-center justify-center p-margin-mobile md:p-12 bg-surface-container-lowest relative">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-10">
+                <div class="w-16 h-16 bg-primary-fixed/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-primary">
+                    <span class="material-symbols-outlined text-[32px]">cell_tower</span>
+                </div>
+                <h2 class="font-headline-md text-headline-md font-bold text-primary mb-2">رمز التحقق لمرة واحدة</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    تم إرسال رمز التحقق (OTP) المكون من 6 أرقام إلى رقم جوالك المسجل لدينا. يرجى إدخاله للمتابعة.
+                </p>
+            </div>
+
+            @if (errorMessage()) {
+                <div class="mb-6 p-4 bg-error-container/20 border border-error/30 rounded-xl flex items-center gap-3 text-error">
+                    <span class="material-symbols-outlined">error</span>
+                    <span class="text-sm font-semibold">{{ errorMessage() }}</span>
+                </div>
+            }
+
+            <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="space-y-6">
+                <!-- OTP Field -->
+                <div class="space-y-1">
+                    <app-text-box
+                        formControlName="otp"
+                        label="رمز التحقق (OTP)"
+                        placeholder="0 0 0 0 0 0"
+                        icon="sms"
+                        [onlyDigits]="true"
+                        [required]="true"
+                        [maxLength]="6"
+                        class="text-center text-lg tracking-[0.75em]">
+                    </app-text-box>
+                    @if (otpForm.get('otp')?.touched && otpForm.get('otp')?.invalid) {
+                        <p class="text-xs text-error pr-4">
+                            @if (otpForm.get('otp')?.errors?.['required']) {
+                                يرجى إدخال رمز التحقق
+                            } @else if (otpForm.get('otp')?.errors?.['pattern']) {
+                                يجب أن يتكون الرمز من 6 أرقام فقط
+                            }
+                        </p>
+                    }
+                </div>
+
+                <!-- Resend Link / Timer simulation -->
+                <div class="flex items-center justify-between pt-2">
+                    <span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm">schedule</span>
+                        صلاحية الرمز تنتهي خلال 5 دقائق
+                    </span>
+                    <a class="font-label-bold text-label-bold text-secondary-container hover:text-secondary transition-colors underline-offset-4 hover:underline"
+                        href="javascript:void(0)" (click)="otpForm.reset()">إعادة إرسال الرمز</a>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <app-button
+                        type="submit"
+                        variant="secondary"
+                        size="lg"
+                        [loading]="isLoading()"
+                        [disabled]="otpForm.invalid || !clientId"
+                        class="w-full">
+                        تأكيد ومتابعة
+                    </app-button>
+                </div>
+            </form>
+
+            <!-- Back Link -->
+            <div class="mt-8 text-center pt-8 border-t border-surface-variant">
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    لم تصلك الرسالة؟
+                    <a class="font-label-bold text-label-bold text-primary hover:text-primary-container transition-colors underline-offset-4 hover:underline mr-1"
+                        href="javascript:void(0)" (click)="otpForm.reset()">تحديث واستلام رمز جديد</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
